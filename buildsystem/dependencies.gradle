@@ -1,0 +1,53 @@
+ext.versions = [
+        //libraries
+        androidSupport      : '25.1.0',
+        anko                : '0.9',
+        timber              : '4.3.1',
+
+        //gradle plugins
+        androidGradlePlugin : '2.2.3',
+        androidApt          : '1.8',
+        javaApt             : '0.8',
+        kotlinGradlePlugin  : '1.0.4',
+
+        //test
+        junit               : '4.12',
+        espresso            : '2.2.2',
+        androidTest         : '0.5',
+        assertjAndroid      : '1.1.1'
+]
+
+ext.libraries = [
+        appCompatV7         : "com.android.support:appcompat-v7:$versions.androidSupport",
+        cardViewV7          : "com.android.support:cardview-v7:$versions.androidSupport",
+        appDesign           : "com.android.support:design:$versions.androidSupport",
+        supportV4           : "com.android.support:support-v4:$versions.androidSupport",
+        timber              : "com.jakewharton.timber:timber:$versions.timber",
+        anko                : "org.jetbrains.anko:anko-common:$versions.anko",
+        kotlinStdLib        : "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlinGradlePlugin",
+
+//        test
+        junit               : "junit:junit:$versions.junit",
+        espressoCore        : "com.android.support.test.espresso:espresso-core:$versions.espresso",
+        androidTestRunner   : "com.android.support.test:runner:$versions.androidTest",
+        androidTestRules    : "com.android.support.test:rules:$versions.androidTest",
+        assertjAndroid      : "com.squareup.assertj:assertj-android:$versions.assertjAndroid",
+]
+
+ext.gradlePlugins = [
+        android             : "com.android.tools.build:gradle:$versions.androidGradlePlugin",
+        androidApt          : "com.neenbedankt.gradle.plugins:android-apt:$versions.androidApt",
+        javaApt             : "net.ltgt.gradle:gradle-apt-plugin:$versions.javaApt",
+        kotlin              : "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlinGradlePlugin",
+        kotlinExtensions    : "org.jetbrains.kotlin:kotlin-android-extensions:$versions.kotlinGradlePlugin"
+]
+
+ext.learningkotlin = [
+        applicationId: "com.mohamadamin.learningkotlin",
+        compileSdk   : 25,
+        buildTools   : '25.0.2',
+        minSdk       : 16,
+        targetSdk    : 25,
+        versionCode  : 1,
+        versionName  : '1.0.0'
+]

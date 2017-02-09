@@ -1,0 +1,71 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion learningkotlin.compileSdk
+    buildToolsVersion learningkotlin.buildTools
+    defaultConfig {
+        applicationId learningkotlin.applicationId
+        minSdkVersion learningkotlin.minSdk
+        targetSdkVersion learningkotlin.targetSdk
+        versionCode learningkotlin.versionCode
+        versionName learningkotlin.versionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        //Add version name and code to generated apks
+        archivesBaseName = "learningkotlin-${learningkotlin.versionName}-${learningkotlin.versionCode}"
+
+    }
+
+    buildTypes {
+        release {
+            debuggable false
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            debuggable true
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'asm-license.txt'
+    }
+
+}
+
+repositories {
+    maven { url "https://maven.fabric.io/public" }
+    maven { url "https://clojars.org/repo/" }
+}
+
+dependencies {
+
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+
+    androidTestCompile(libraries.espressoCore, {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    compile libraries.appCompatV7
+    compile libraries.cardViewV7
+    compile libraries.appDesign
+
+    compile libraries.kotlinStdLib
+    compile libraries.timber
+    compile libraries.anko
+
+    testCompile libraries.junit
+
+}
