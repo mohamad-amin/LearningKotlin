@@ -20,6 +20,7 @@ ext.versions = [
 ext.libraries = [
         appCompatV7         : "com.android.support:appcompat-v7:$versions.androidSupport",
         cardViewV7          : "com.android.support:cardview-v7:$versions.androidSupport",
+        recyclerViewV7      : "com.android.support:recyclerview-v7:$versions.androidSupport",
         appDesign           : "com.android.support:design:$versions.androidSupport",
         supportV4           : "com.android.support:support-v4:$versions.androidSupport",
         timber              : "com.jakewharton.timber:timber:$versions.timber",
