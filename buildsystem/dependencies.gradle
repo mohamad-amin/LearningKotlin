@@ -4,6 +4,7 @@ ext.versions = [
         anko                : '0.9',
         timber              : '4.3.1',
         gson                : '2.7',
+        glide               : '3.7.0',
 
         //gradle plugins
         androidGradlePlugin : '2.2.3',
@@ -28,6 +29,7 @@ ext.libraries = [
         anko                : "org.jetbrains.anko:anko-common:$versions.anko",
         kotlinStdLib        : "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlinGradlePlugin",
         gson                : "com.google.code.gson:gson:$versions.gson",
+        glide               : "com.github.bumptech.glide:glide:$versions.glide",
 
 //        test
         junit               : "junit:junit:$versions.junit",

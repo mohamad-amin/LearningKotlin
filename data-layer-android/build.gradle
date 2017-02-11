@@ -37,6 +37,8 @@ dependencies {
 
     compile libraries.gson
     compile libraries.timber
+    compile libraries.kotlinStdLib
+
     testCompile libraries.junit
 
 }
