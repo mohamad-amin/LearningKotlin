@@ -12,7 +12,7 @@ import org.jetbrains.anko.find
 /**
  * @author MohamadAmin Mohamadi (mohammadi.mohamadamin@gmail.com) on 2/11/17.
  */
-class ForecastViewHolder(val view: View, val itemClick: ForecastListAdapter.OnItemClickListener):
+class ForecastViewHolder(val view: View, val itemClick: (Forecast) -> Unit):
         RecyclerView.ViewHolder(view) {
 
     private val iconView: ImageView

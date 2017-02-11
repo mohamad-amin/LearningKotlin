@@ -10,12 +10,8 @@ import com.mohamadamin.learningkotlin.data.entity.ForecastList
 /**
  * @author MohamadAmin Mohamadi (mohammadi.mohamadamin@gmail.com) on 2/11/17.
  */
-class ForecastListAdapter(val weekForecast: ForecastList, val itemClick: OnItemClickListener) :
+class ForecastListAdapter(val weekForecast: ForecastList, val itemClick: (Forecast) -> Unit) :
         RecyclerView.Adapter<ForecastViewHolder>() {
-
-    interface OnItemClickListener {
-        operator fun invoke(forecast: Forecast)
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ForecastViewHolder? {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.forecast_item, parent, false)

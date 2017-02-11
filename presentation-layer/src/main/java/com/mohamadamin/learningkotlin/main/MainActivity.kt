@@ -7,12 +7,13 @@ import android.support.v7.widget.RecyclerView
 import com.mohamadamin.learningkotlin.R
 import com.mohamadamin.learningkotlin.data.entity.Forecast
 import com.mohamadamin.learningkotlin.data.network.RequestForecastCommand
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.find
-import org.jetbrains.anko.toast
-import org.jetbrains.anko.uiThread
+import org.jetbrains.anko.*
 
 class MainActivity : AppCompatActivity() {
+
+    inline fun <T> with(t:T, body: T.() -> Unit) {
+        t.body()
+    }
 
     private val listItems = listOf(
             "Mon 6/23 - Sunny - 31/17",
@@ -29,19 +30,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
         val forecastList = find<RecyclerView>(R.id.forecast_list)
         forecastList.layoutManager = LinearLayoutManager(this)
 
         doAsync {
             val result = RequestForecastCommand("94043").execute()
             uiThread {
-                forecastList.adapter = ForecastListAdapter(result,
-                        object : ForecastListAdapter.OnItemClickListener {
-                            override fun invoke(forecast: Forecast) {
-                                toast(forecast.date)
-                            }
-                        }
-                )
+                forecastList.adapter = ForecastListAdapter(result) {
+                    toast(it.date)
+                }
             }
         }
 
