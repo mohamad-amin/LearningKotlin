@@ -15,7 +15,7 @@ class ForecastListAdapter(val weekForecast: ForecastList) : RecyclerView.Adapter
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        with(weekForecast.dailyForecast[position]) {
+        with(weekForecast[position]) {
             holder.textView.text = "$date - $description - $high/$low"
         }
     }
