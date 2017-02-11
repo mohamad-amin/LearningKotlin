@@ -4,10 +4,9 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import com.mohamadamin.learningkotlin.model.Request
+import com.mohamadamin.learningkotlin.data.network.RequestForecastCommand
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
-import org.jetbrains.anko.longToast
 import org.jetbrains.anko.uiThread
 
 class MainActivity : AppCompatActivity() {
@@ -29,12 +28,11 @@ class MainActivity : AppCompatActivity() {
 
         val forecastList = find<RecyclerView>(R.id.forecast_list)
         forecastList.layoutManager = LinearLayoutManager(this)
-        forecastList.adapter = ForecastListAdapter(listItems)
 
         doAsync {
-            Request("myurl").run()
+            val result = RequestForecastCommand("94043").execute()
             uiThread {
-                longToast("Request performed")
+                forecastList.adapter = ForecastListAdapter(result)
             }
         }
 

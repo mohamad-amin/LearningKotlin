@@ -42,17 +42,22 @@ android {
         exclude 'META-INF/NOTICE.txt'
         exclude 'asm-license.txt'
     }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
 
 }
 
 repositories {
     maven { url "https://maven.fabric.io/public" }
     maven { url "https://clojars.org/repo/" }
+    mavenCentral()
 }
 
 dependencies {
 
     compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile project(':data-layer-android')
 
     androidTestCompile(libraries.espressoCore, {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -67,5 +72,6 @@ dependencies {
     compile libraries.anko
 
     testCompile libraries.junit
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
 }
