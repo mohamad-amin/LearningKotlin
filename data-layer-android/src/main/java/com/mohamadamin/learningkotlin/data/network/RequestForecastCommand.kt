@@ -13,4 +13,5 @@ class RequestForecastCommand(val zipCode: String): Command<ForecastList> {
         val forecastRequest = ForecastRequest(zipCode)
         return ForecastDataMapper().convertFromDataModel(forecastRequest.execute())
     }
+
 }
