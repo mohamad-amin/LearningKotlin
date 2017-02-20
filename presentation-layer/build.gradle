@@ -69,8 +69,8 @@ dependencies {
     compile libraries.appDesign
 
     compile libraries.kotlinStdLib
+    compile libraries.ankoCommon
     compile libraries.timber
-    compile libraries.anko
     compile libraries.glide
 
     testCompile libraries.junit
