@@ -5,6 +5,8 @@ import android.database.sqlite.SQLiteDatabase
 import com.mohamadamin.learningkotlin.CityForecastTable
 import com.mohamadamin.learningkotlin.DayForecastTable
 import com.mohamadamin.learningkotlin.ForecastDbHelper
+import com.mohamadamin.learningkotlin.data.datasource.ForecastDataSource
+import com.mohamadamin.learningkotlin.data.entity.Forecast
 import com.mohamadamin.learningkotlin.data.entity.ForecastList
 import com.mohamadamin.learningkotlin.database.entity.CityForecast
 import com.mohamadamin.learningkotlin.database.entity.DayForecast
@@ -18,10 +20,9 @@ import java.util.*
 /**
  * @author MohamadAmin Mohamadi (mohammadi.mohamadamin@gmail.com) on 2/21/17.
  */
-class ForecastDb(context: Context) {
+class ForecastDb(context: Context, val dataMapper: DbDataMapper = DbDataMapper()) : ForecastDataSource {
 
     var forecastDbHelper: ForecastDbHelper = ForecastDbHelper.instance
-    val dataMapper: DbDataMapper = DbDataMapper()
 
     fun <T : Any> SelectQueryBuilder.parseList(parser: (Map<String, Any?>) -> T) : List<T> =
             parseList(object: MapRowParser<T> {
@@ -44,7 +45,7 @@ class ForecastDb(context: Context) {
         ForecastDbHelper.initialize(context)
     }
 
-    fun requestForecastByZipcode(zipCode: Long, date: Long) = forecastDbHelper.use {
+    override fun requestForecastByZipCode(zipCode: Long, date: Long) = forecastDbHelper.use {
 
         val dailyRequest = "${DayForecastTable.CITY_ID} = ? AND ${DayForecastTable.DATE} >= ?"
         val dailyForecast = select(DayForecastTable.NAME)
@@ -75,6 +76,13 @@ class ForecastDb(context: Context) {
             }
         }
 
+    }
+
+    override fun requestDayForecast(id: Long): Forecast? = forecastDbHelper.use {
+        val forecast = select(DayForecastTable.NAME)
+                .whereSimple(DayForecastTable.ID + " = ?", id.toString())
+                .parseOpt { DayForecast(HashMap(it)) }
+        if (forecast != null) dataMapper.convertDayToDomain(forecast) else null
     }
 
 }

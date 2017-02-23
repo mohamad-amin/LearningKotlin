@@ -16,7 +16,7 @@ class ForecastDbHelper private constructor(context: Context) : ManagedSQLiteOpen
         val DB_NAME = "forecast.db"
         val DB_VERSION = 1
 
-        fun initialize(context: Context){
+        fun initialize(context: Context) {
             this.context = context
         }
 
