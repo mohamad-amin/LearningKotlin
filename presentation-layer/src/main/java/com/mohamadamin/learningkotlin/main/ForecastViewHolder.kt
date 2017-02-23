@@ -6,7 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.mohamadamin.learningkotlin.R
-import com.mohamadamin.learningkotlin.data.entity.Forecast
+import com.mohamadamin.learningkt.domain.entity.Forecast
 import org.jetbrains.anko.find
 
 /**
@@ -37,7 +37,7 @@ class ForecastViewHolder(val view: View, val itemClick: (Forecast) -> Unit):
                     .load(forecast.iconUrl)
                     .into(iconView)
 
-            dateView.text = date
+            dateView.text = date.toString()
             descriptionView.text = description
             maxTempView.text = "${high.toString()}"
             minTempView.text = "${low.toString()}"

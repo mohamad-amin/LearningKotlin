@@ -4,8 +4,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.mohamadamin.learningkotlin.R
-import com.mohamadamin.learningkotlin.data.entity.Forecast
-import com.mohamadamin.learningkotlin.data.entity.ForecastList
+import com.mohamadamin.learningkt.domain.entity.Forecast
+import com.mohamadamin.learningkt.domain.entity.ForecastList
 
 /**
  * @author MohamadAmin Mohamadi (mohammadi.mohamadamin@gmail.com) on 2/11/17.
