@@ -52,7 +52,7 @@ ext.learningkotlin = [
         applicationId: "com.mohamadamin.learningkotlin",
         compileSdk   : 25,
         buildTools   : '25.0.2',
-        minSdk       : 16,
+        minSdk       : 21,
         targetSdk    : 25,
         versionCode  : 1,
         versionName  : '1.0.0'

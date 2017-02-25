@@ -1,4 +1,4 @@
-<manifest package="com.mohamadamin.learningkotlin"
+<manifest package="com.mohamadamin.learningkt.database"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application android:allowBackup="true"

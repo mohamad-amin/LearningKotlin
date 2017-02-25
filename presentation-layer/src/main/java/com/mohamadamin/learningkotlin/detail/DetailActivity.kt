@@ -3,19 +3,24 @@ package com.mohamadamin.learningkotlin.detail
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.mohamadamin.learningkotlin.App
 import com.mohamadamin.learningkotlin.R
+import com.mohamadamin.learningkotlin.base.ToolbarManager
 import com.mohamadamin.learningkt.data.interactor.ForecastProvider
 import com.mohamadamin.learningkt.data.network.command.RequestDayForecastCommand
 import com.mohamadamin.learningkt.domain.entity.Forecast
 import kotlinx.android.synthetic.main.activity_detail.*
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.find
+import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 import java.text.DateFormat
 import java.util.*
 
-class DetailActivity : AppCompatActivity() {
+class DetailActivity : AppCompatActivity(), ToolbarManager {
 
     var TextView.textColor: Int
         get() = currentTextColor
@@ -27,14 +32,23 @@ class DetailActivity : AppCompatActivity() {
     }
 
     var forecastProvider: ForecastProvider? = null
+    override val toolbar: Toolbar by lazy { find<Toolbar>(R.id.toolbar) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
+        initToolbar(R.menu.main) {
+            when (it) {
+                R.id.action_settings -> App.instance.toast("Settings")
+                else -> App.instance.toast("Unknown option")
+            }
+            true
+        }
+        enableHomeAsUp { onBackPressed() }
 
         forecastProvider = ForecastProvider(this, listOf())
-        val title = intent.getStringExtra(CITY_NAME)
+        toolbarTitle = intent.getStringExtra(CITY_NAME)
 
         doAsync {
             val forecastData = RequestDayForecastCommand(intent.getLongExtra(ID, -1), forecastProvider!!).execute()

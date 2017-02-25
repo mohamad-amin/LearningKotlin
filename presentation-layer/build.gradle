@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
 
-    enforceUniquePackageName = false
+//    enforceUniquePackageName = false
 
     compileSdkVersion learningkotlin.compileSdk
     buildToolsVersion learningkotlin.buildTools

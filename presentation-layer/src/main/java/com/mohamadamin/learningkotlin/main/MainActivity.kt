@@ -4,29 +4,38 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.Toolbar
+import com.mohamadamin.learningkotlin.App
 import com.mohamadamin.learningkotlin.R
+import com.mohamadamin.learningkotlin.base.ToolbarManager
 import com.mohamadamin.learningkotlin.detail.DetailActivity
 import com.mohamadamin.learningkt.data.interactor.ForecastProvider
 import com.mohamadamin.learningkt.data.network.command.RequestForecastCommand
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.find
-import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.uiThread
+import org.jetbrains.anko.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ToolbarManager {
 
     var forecastProvider: ForecastProvider? = null
     val zipCode = 94043L
+
+    override val toolbar: Toolbar by lazy { find<Toolbar>(R.id.toolbar) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        initToolbar(R.menu.main) {
+            when (it) {
+                R.id.action_settings -> App.instance.toast("Settings")
+                else -> App.instance.toast("Unknown option")
+            }
+            true
+        }
 
         forecastProvider = ForecastProvider(this, listOf())
-
         val forecastList = find<RecyclerView>(R.id.forecast_list)
         forecastList.layoutManager = LinearLayoutManager(this)
+        attachToScroll(forecastList)
 
         doAsync {
             val result = RequestForecastCommand(zipCode, forecastProvider!!).execute()
@@ -37,6 +46,7 @@ class MainActivity : AppCompatActivity() {
                             DetailActivity.CITY_NAME to result.city
                     )
                 }
+                toolbarTitle = "${result.city} (${result.country})"
             }
         }
 
