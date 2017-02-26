@@ -1,4 +1,4 @@
-package com.mohamadamin.learningkt.domain.delegate
+package com.mohamadamin.learningkt.data.delegate
 
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty

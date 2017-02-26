@@ -9,14 +9,12 @@ import com.bumptech.glide.Glide
 import com.mohamadamin.learningkotlin.App
 import com.mohamadamin.learningkotlin.R
 import com.mohamadamin.learningkotlin.base.ToolbarManager
+import com.mohamadamin.learningkotlin.settings.SettingsActivity
 import com.mohamadamin.learningkt.data.interactor.ForecastProvider
 import com.mohamadamin.learningkt.data.network.command.RequestDayForecastCommand
 import com.mohamadamin.learningkt.domain.entity.Forecast
 import kotlinx.android.synthetic.main.activity_detail.*
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.find
-import org.jetbrains.anko.toast
-import org.jetbrains.anko.uiThread
+import org.jetbrains.anko.*
 import java.text.DateFormat
 import java.util.*
 
@@ -40,7 +38,7 @@ class DetailActivity : AppCompatActivity(), ToolbarManager {
         setContentView(R.layout.activity_detail)
         initToolbar(R.menu.main) {
             when (it) {
-                R.id.action_settings -> App.instance.toast("Settings")
+                R.id.action_settings -> startActivity<SettingsActivity>()
                 else -> App.instance.toast("Unknown option")
             }
             true
