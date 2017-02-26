@@ -2,6 +2,7 @@ package com.mohamadamin.learningkt.data.interactor
 
 import android.content.Context
 import android.text.format.DateUtils
+import android.util.Log
 import com.mohamadamin.learningkt.data.ServerDataMapper
 import com.mohamadamin.learningkt.data.network.ForecastServer
 import com.mohamadamin.learningkt.database.sql.ForecastDb
@@ -25,10 +26,6 @@ class ForecastProvider(context: Context, var sources: List<ForecastDataSource>) 
         throw NoSuchElementException("No element matching predicate was found.")
     }
 
-    companion object {
-        val DAY_IN_MILLS = 24 * 60 * 60 * 1000
-    }
-
     init {
         if (sources.isEmpty()) {
             sources = listOf(ForecastDb(context), ForecastServer(ServerDataMapper(), context))
@@ -44,6 +41,7 @@ class ForecastProvider(context: Context, var sources: List<ForecastDataSource>) 
     }
 
     fun requestForecast(id: Long) : Forecast = requestToSources {
+        Log.d(javaClass.simpleName, "Requesting one day forecast with ${it.javaClass.simpleName}")
         it.requestDayForecast(id)
     }
 

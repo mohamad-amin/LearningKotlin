@@ -2,6 +2,8 @@
 <manifest package="com.mohamadamin.learningkotlin"
     xmlns:android="http://schemas.android.com/apk/res/android"
     >
+    
+   <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,13 +13,12 @@
         android:theme="@style/AppTheme"
         >
         <activity
-            android:name="com.mohamadamin.learningkt.database.main.MainActivity"
+            android:name="com.mohamadamin.learningkotlin.main.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>

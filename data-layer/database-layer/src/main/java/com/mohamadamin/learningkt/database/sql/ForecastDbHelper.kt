@@ -20,9 +20,7 @@ class ForecastDbHelper private constructor(context: Context) : ManagedSQLiteOpen
             this.context = context
         }
 
-        val instance by lazy {
-            ForecastDbHelper(context!!)
-        }
+        val instance: ForecastDbHelper by lazy { ForecastDbHelper(context!!) }
 
     }
 

@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity(), ToolbarManager {
     }
 
     fun loadForecast() {
+
         val forecastProvider = ForecastProvider(this, listOf())
         val forecastList = find<RecyclerView>(R.id.forecast_list)
         forecastList.layoutManager = LinearLayoutManager(this)
@@ -48,13 +49,14 @@ class MainActivity : AppCompatActivity(), ToolbarManager {
             uiThread {
                 forecastList.adapter = ForecastListAdapter(result) {
                     startActivity<DetailActivity>(
-                            DetailActivity.ID to result.id,
+                            DetailActivity.ID to it.id,
                             DetailActivity.CITY_NAME to result.city
                     )
                 }
                 toolbarTitle = "${result.city} (${result.country})"
             }
         }
+
     }
 
 }

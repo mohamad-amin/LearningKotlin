@@ -2,6 +2,7 @@ package com.mohamadamin.learningkt.database.sql
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
+import android.util.Log
 import com.mohamadamin.learningkt.database.entity.CityForecast
 import com.mohamadamin.learningkt.database.entity.DayForecast
 import com.mohamadamin.learningkt.database.mapper.DbDataMapper
@@ -19,7 +20,10 @@ import java.util.*
  */
 class ForecastDb(context: Context, val dataMapper: DbDataMapper = DbDataMapper()) : ForecastDataSource {
 
-    var forecastDbHelper: ForecastDbHelper = ForecastDbHelper.instance
+    var forecastDbHelper: ForecastDbHelper? = null
+
+    fun SelectQueryBuilder.byId(id: Long) =
+            whereSimple("_id = ?", id.toString())
 
     fun <T : Any> SelectQueryBuilder.parseList(parser: (Map<String, Any?>) -> T) : List<T> =
             parseList(object: MapRowParser<T> {
@@ -40,9 +44,10 @@ class ForecastDb(context: Context, val dataMapper: DbDataMapper = DbDataMapper()
 
     init {
         ForecastDbHelper.initialize(context)
+        forecastDbHelper = ForecastDbHelper.instance
     }
 
-    override fun requestForecastByZipCode(zipCode: Long, date: Long) = forecastDbHelper.use {
+    override fun requestForecastByZipCode(zipCode: Long, date: Long) = forecastDbHelper!!.use {
 
         val dailyRequest = "${DayForecastTable.CITY_ID} = ? AND ${DayForecastTable.DATE} >= ?"
         val dailyForecast = select(DayForecastTable.NAME)
@@ -61,7 +66,7 @@ class ForecastDb(context: Context, val dataMapper: DbDataMapper = DbDataMapper()
 
     }
 
-    fun saveForecast(forecast: ForecastList) = forecastDbHelper.use {
+    fun saveForecast(forecast: ForecastList) = forecastDbHelper!!.use {
 
         clear(DayForecastTable.NAME)
         clear(CityForecastTable.NAME)
@@ -75,10 +80,11 @@ class ForecastDb(context: Context, val dataMapper: DbDataMapper = DbDataMapper()
 
     }
 
-    override fun requestDayForecast(id: Long): Forecast? = forecastDbHelper.use {
-        val forecast = select(DayForecastTable.NAME)
-                .whereSimple(DayForecastTable.ID + " = ?", id.toString())
+    override fun requestDayForecast(id: Long): Forecast? = forecastDbHelper!!.use {
+        Log.d(javaClass.simpleName, "1")
+        val forecast = select(DayForecastTable.NAME).byId(id)
                 .parseOpt { DayForecast(HashMap(it)) }
+        if (forecast == null) Log.d(javaClass.simpleName, "Null forecast from db for id: $id")
         if (forecast != null) dataMapper.convertDayToDomain(forecast) else null
     }
 

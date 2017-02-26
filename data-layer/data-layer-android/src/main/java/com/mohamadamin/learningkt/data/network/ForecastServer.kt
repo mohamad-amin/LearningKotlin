@@ -1,6 +1,7 @@
 package com.mohamadamin.learningkt.data.network
 
 import android.content.Context
+import android.util.Log
 import com.mohamadamin.learningkt.data.ServerDataMapper
 import com.mohamadamin.learningkt.database.sql.ForecastDb
 import com.mohamadamin.learningkt.domain.datasource.ForecastDataSource
@@ -10,11 +11,13 @@ import com.mohamadamin.learningkt.domain.entity.ForecastList
 /**
  * @author MohamadAmin Mohamadi (mohammadi.mohamadamin@gmail.com) on 2/21/17.
  */
-class ForecastServer(val dataMapper: ServerDataMapper = ServerDataMapper(), context: Context) : ForecastDataSource {
+class ForecastServer(val dataMapper: ServerDataMapper
+                     = ServerDataMapper(), context: Context) : ForecastDataSource {
 
     var forecastDb: ForecastDb? = null
 
     init {
+        Log.d(javaClass.simpleName, "Inside server")
         forecastDb = ForecastDb(context)
     }
 
